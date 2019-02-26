@@ -47,9 +47,12 @@ client.on('ready', async () => {
     await user.setStatus('dnd');
     await user.setActivity(activities.exit);
 
+    const attachment = new Attachment(getImage('goodbye'));
     const messageSent = await client.channels
       .get(process.env.MAIN_CHANNEL_ID)
-      .send(messages.exit);
+      .send(messages.exit, {
+        files: [attachment],
+      });
 
     if (messageSent) {
       process.exit(0);
