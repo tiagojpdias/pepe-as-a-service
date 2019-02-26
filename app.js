@@ -13,7 +13,6 @@ const activities = {
   exit: `Screw u guys I'm going home`,
 };
 
-
 const getImage = tag => {
   if (!tag) {
     throw Error('Tag is missing');
@@ -33,7 +32,10 @@ const getImage = tag => {
 client.login(process.env.BOT_TOKEN);
 
 client.on('ready', async () => {
-  client.channels.get(process.env.MAIN_CHANNEL_ID).send(messages.enter);
+  const helloImage = new Attachment(getImage('hello'));
+  client.channels.get(process.env.MAIN_CHANNEL_ID).send(messages.enter, {
+    files: [helloImage],
+  });
 
   const currentDate = new Date(Date.now()).toLocaleString('PT');
 
@@ -48,9 +50,12 @@ client.on('ready', async () => {
     await user.setStatus('dnd');
     await user.setActivity(activities.exit);
 
+    const goodbyeImage = new Attachment(getImage('goodbye'));
     const messageSent = await client.channels
       .get(process.env.MAIN_CHANNEL_ID)
-      .send(messages.exit);
+      .send(messages.exit, {
+        files: [goodbyeImage],
+      });
 
     if (messageSent) {
       process.exit(0);
@@ -66,7 +71,15 @@ client.on('message', async message => {
   const botUsername = client.user.toString();
 
   if (message.content.includes(botUsername)) {
-    const [username, tag] = message.content.split(' ');
+    const [username, tag, ...gibberish] = message.content.split(' ');
+
+    if (gibberish) {
+      const attachment = new Attachment(getImage('angryPepe'));
+      message.channel.send('**You can only provide one tag!!!**', {
+        files: [attachment],
+      });
+      return;
+    }
 
     if (!tag) {
       message.channel.send(`Usage :: _${username} {tag}_`);
