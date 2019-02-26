@@ -1,12 +1,7 @@
-require('dotenv').config();
-
 const { Client, Attachment } = require('discord.js');
+const { tags } = require('./boot');
 
 const client = new Client();
-
-const files = [
-  'https://i.kym-cdn.com/photos/images/original/001/213/604/4c6.png',
-];
 
 const messages = {
   enter: 'bom dia a todos menos a um',
@@ -16,6 +11,23 @@ const messages = {
 const activities = {
   enter: 'Pepe as a Service',
   exit: `Screw u guys I'm going home`,
+};
+
+
+const getImage = tag => {
+  if (!tag) {
+    throw Error('Tag is missing');
+  }
+
+  const urls = tags.get(tag);
+
+  if (!urls) {
+    throw Error('No images for this tag');
+  }
+
+  const index = Math.floor(Math.random() * urls.length);
+
+  return urls[index];
 };
 
 client.login(process.env.BOT_TOKEN);
@@ -54,7 +66,13 @@ client.on('message', async message => {
   const botUsername = client.user.toString();
 
   if (message.content.includes(botUsername)) {
-    const attachment = new Attachment(files[0]);
+    const [username, tag] = message.content.split(' ');
+
+    if (!tag) {
+      message.channel.send(`Usage :: _${username} {tag}_`);
+    }
+
+    const attachment = new Attachment(getImage(tag));
 
     const messageSent = message.channel.send(attachment);
 
