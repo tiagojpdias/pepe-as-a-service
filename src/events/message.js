@@ -26,7 +26,7 @@ module.exports = async message => {
   const botUsername = message.client.user.toString();
 
   if (message.content.startsWith(botUsername)) {
-    const [username, tag, ...gibberish] = message.content.split(' ');
+    const [username, tag, ...gibberish] = message.content.trim().split(' ');
 
     if (gibberish.length > 0) {
       const attachment = new Attachment(getImage('angryPepe'));
@@ -37,16 +37,22 @@ module.exports = async message => {
       return;
     }
 
-    throttleUser(message.author, () => {
-      if (!tag) {
-        message.channel.send(`Usage :: _${username} {tag}_`);
+    if (!tag) {
+      message.channel.send(`Usage :: _${username} {tag}_`);
 
-        return;
-      }
+      return;
+    }
 
-      const attachment = new Attachment(getImage(tag));
+    try {
+      const image = getImage(tag);
 
-      message.channel.send(attachment);
-    });
+      throttleUser(message.author, () => {
+        const attachment = new Attachment(image);
+
+        message.channel.send(attachment);
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 };
