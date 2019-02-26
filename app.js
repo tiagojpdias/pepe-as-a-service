@@ -10,7 +10,7 @@ client.on('ready', () => {
   console.log('The bot is ready');
 });
 
-client.on('message', (msg) => {
+client.on('message', msg => {
   if (msg.content.includes('pepe')) {
     msg.reply('oi');
   }
