@@ -32,7 +32,10 @@ const getImage = tag => {
 client.login(process.env.BOT_TOKEN);
 
 client.on('ready', async () => {
-  client.channels.get(process.env.MAIN_CHANNEL_ID).send(messages.enter);
+  const helloImage = new Attachment(getImage('hello'));
+  client.channels.get(process.env.MAIN_CHANNEL_ID).send(messages.enter, {
+    files: [helloImage],
+  });
 
   const currentDate = new Date(Date.now()).toLocaleString('PT');
 
@@ -47,11 +50,11 @@ client.on('ready', async () => {
     await user.setStatus('dnd');
     await user.setActivity(activities.exit);
 
-    const attachment = new Attachment(getImage('goodbye'));
+    const goodbyeImage = new Attachment(getImage('goodbye'));
     const messageSent = await client.channels
       .get(process.env.MAIN_CHANNEL_ID)
       .send(messages.exit, {
-        files: [attachment],
+        files: [goodbyeImage],
       });
 
     if (messageSent) {
