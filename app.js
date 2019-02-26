@@ -13,7 +13,6 @@ const activities = {
   exit: `Screw u guys I'm going home`,
 };
 
-
 const getImage = tag => {
   if (!tag) {
     throw Error('Tag is missing');
@@ -66,7 +65,15 @@ client.on('message', async message => {
   const botUsername = client.user.toString();
 
   if (message.content.includes(botUsername)) {
-    const [username, tag] = message.content.split(' ');
+    const [username, tag, ...gibberish] = message.content.split(' ');
+
+    if (gibberish) {
+      const attachment = new Attachment(getImage('angryPepe'));
+      message.channel.send('**You can only provide one tag!!!**', {
+        files: [attachment],
+      });
+      return;
+    }
 
     if (!tag) {
       message.channel.send(`Usage :: _${username} {tag}_`);
