@@ -1,5 +1,6 @@
 const { Attachment } = require('discord.js');
-const { getImage } = require('../utils');
+const { getImage, getReservedImage } = require('../utils');
+const { allowedTags } = require('../boot');
 
 const jail = new Set();
 function throttleUser(author, cb, time = process.env.MSG_THROTTLE_TIME) {
@@ -26,8 +27,8 @@ module.exports = async message => {
     const [username, tag, ...gibberish] = message.content.trim().split(' ');
 
     if (gibberish.length > 0) {
-      const attachment = new Attachment(getImage('angryPepe'));
-      message.channel.send('**You can only provide one tag!!!**', {
+      const attachment = new Attachment(getReservedImage('angryPepe'));
+      message.channel.send('**MANO SO UMA TAG DE CADA VEZ NE!!**', {
         files: [attachment],
       });
 
@@ -35,7 +36,13 @@ module.exports = async message => {
     }
 
     if (!tag) {
-      message.channel.send(`Usage :: _${username} {tag}_`);
+      message.channel.send(`Exemplo :: _${username} {tag}_`);
+
+      return;
+    }
+
+    if (!allowedTags.includes(tag)) {
+      message.channel.send(`Tags :: ${allowedTags.join(' , ')}`);
 
       return;
     }

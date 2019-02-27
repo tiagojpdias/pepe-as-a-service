@@ -1,11 +1,11 @@
 const { Attachment } = require('discord.js');
 const { messages, activities } = require('../../config');
-const { getImage } = require('../utils');
+const { getReservedImage } = require('../utils');
 
 const currentDate = new Date(Date.now()).toLocaleString('PT');
 
 module.exports = async client => {
-  const helloImage = new Attachment(getImage('hello'));
+  const helloImage = new Attachment(getReservedImage('hello'));
   await client.channels.get(process.env.MAIN_CHANNEL_ID).send(messages.enter, {
     files: [helloImage],
   });
@@ -19,7 +19,7 @@ module.exports = async client => {
     await user.setStatus('dnd');
     await user.setActivity(activities.exit);
 
-    const goodbyeImage = new Attachment(getImage('goodbye'));
+    const goodbyeImage = new Attachment(getReservedImage('goodbye'));
     const messageSent = await client.channels
       .get(process.env.MAIN_CHANNEL_ID)
       .send(messages.exit, {
