@@ -2,18 +2,45 @@ const { Attachment } = require('discord.js');
 const { getImage, getReservedImage } = require('../utils');
 const { allowedTags } = require('../boot');
 
-const jail = new Set();
-function throttleUser(author, cb, time = process.env.MSG_THROTTLE_TIME || 30) {
-  if (jail.has(author.username)) {
+const retries = new Map();
+
+function throttleUser(
+    author,
+    callback,
+    throttleTime = process.env.MSG_THROTTLE_TIME || 30,
+    retryThreshold = process.env.MSG_RETRY_THRESHOLD || 3
+) {
+  if (retries.has(author.username)) {
+    const retryCount = retries.get(author.username) + 1;
+
+    retries.set(author.username, retryCount);
+
+    if (retryCount >= retryThreshold * 2) {
+      const attachment = new Attachment(getReservedImage('angryPepe'));
+
+      author.send('**FODA-SE PÁ, NÃO PERCEBESTE A MENSAGEM CRL?!?!**', {
+        files: [attachment],
+      });
+
+      return;
+    }
+
+    if (retryCount >= retryThreshold) {
+      author.send('_Borda_, fizeste '+retryCount+' pedidos nos últimos '+throttleTime+' segundos. Vamos evitar _flood_ no canal, OK?');
+
+      return;
+    }
+
     return;
   }
 
   setInterval(() => {
-    jail.delete(author.username);
-  }, time * 1000);
+    retries.delete(author.username);
+  }, throttleTime * 1000);
 
-  jail.add(author.username);
-  cb();
+  retries.set(author.username, 1);
+
+  callback();
 }
 
 module.exports = async message => {
