@@ -1,8 +1,5 @@
-const { Client, Attachment } = require('discord.js');
+const { Attachment } = require('discord.js');
 const { getImage } = require('../utils');
-
-const client = new Client();
-client.login(process.env.BOT_TOKEN);
 
 const jail = new Set();
 function throttleUser(author, cb, time = process.env.MSG_THROTTLE_TIME) {
