@@ -5,10 +5,10 @@ const { allowedTags } = require('../boot');
 const retries = new Map();
 
 function throttleUser(
-    author,
-    callback,
-    throttleTime = process.env.MSG_THROTTLE_TIME || 30,
-    retryThreshold = process.env.MSG_RETRY_THRESHOLD || 3
+  author,
+  callback,
+  throttleTime = process.env.MSG_THROTTLE_TIME || 30,
+  retryThreshold = process.env.MSG_RETRY_THRESHOLD || 3,
 ) {
   if (retries.has(author.username)) {
     const retryCount = retries.get(author.username) + 1;
@@ -26,7 +26,9 @@ function throttleUser(
     }
 
     if (retryCount >= retryThreshold) {
-      author.send('_Borda_, fizeste '+retryCount+' pedidos nos últimos '+throttleTime+' segundos. Vamos evitar _flood_ no canal, OK?');
+      author.send(
+        `_Borda_, fizeste ${retryCount} pedidos nos últimos ${throttleTime} segundos. Vamos evitar _flood_ no canal, OK?`,
+      );
 
       return;
     }
