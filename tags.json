@@ -1,6 +1,32 @@
 {
-  "😦": ["https://i.kym-cdn.com/photos/images/original/001/213/604/4c6.png"],
-  ":|": ["url3", "url4"],
+  "😦": [
+    "https://i.kym-cdn.com/photos/images/original/001/129/183/5bb.png",
+    "https://i.kym-cdn.com/photos/images/newsfeed/000/459/893/136.png",
+    "https://i.kym-cdn.com/photos/images/original/000/883/619/c40.png",
+    "https://i1.wp.com/cdn140.picsart.com/235297512024212.png?r1024x1024",
+    "https://orig00.deviantart.net/9bdb/f/2015/069/5/8/rick___sad_pepe_by_diglididudeng-d8l8vb0.png",
+    "https://i.imgur.com/0GQ0vur.png"
+  ],
+  "😃": [
+    "http://www.stickpng.com/assets/images/5845cd430b2a3b54fdbaecf8.png",
+    "http://www.stickpng.com/assets/images/584871d2e4e6f86ab5c3359e.png",
+    "http://www.stickpng.com/assets/images/5859b173711f64423aa5e050.png",
+    "https://i.kym-cdn.com/photos/images/original/001/142/606/dbd.png",
+    "https://s.tcdn.co/985/54d/98554d9b-45ff-370b-8cf7-0f4af8813814/3.png"
+  ],
+  "😉": [
+    "https://cdn140.picsart.com/236830659023212.png?r1024x1024",
+    "https://i.kym-cdn.com/photos/images/newsfeed/000/893/230/c08.png",
+    "https://steemitimages.com/0x0/http://www.infostormer.com/wp-content/uploads/2016/09/trump-pepe-frog2.png"
+  ],
+  "😠": [
+    "http://www.stickpng.com/assets/images/58486a72849cf46a2a931338.png",
+    "https://external-preview.redd.it/guULQdv1Q9_zU10Zi_XzCJPnNLcUovjQvBzbz6LdMxw.png?width=768&auto=webp&s=437e6893281afbabf81c5756c758948522b9ff49",
+    "https://img.fireden.net/co/image/1452/55/1452553334195.png",
+    "https://pngimage.net/wp-content/uploads/2018/06/pepe-meme-png-6.png",
+    "https://i.redd.it/yh0b3e42dfw11.png"
+  ],
+  "😐": ["https://i.warosu.org/data/lit/img/0089/84/1484626477298.png"],
   "angryPepe": ["https://i.redd.it/yh0b3e42dfw11.png"],
   "goodbye": ["https://i.warosu.org/data/biz/img/0055/36/1514419864572.png"],
   "hello": ["https://pbs.twimg.com/media/DsQ28pOXQAECqhq.png"]
