@@ -20,8 +20,7 @@ module.exports = async message => {
     return;
   }
 
-
-  let botUsername = message.client.user.toString();
+  const botUsername = message.client.user.toString();
 
   if (message.content.startsWith(botUsername)) {
     const [username, tag, ...gibberish] = message.content.trim().split(' ');
