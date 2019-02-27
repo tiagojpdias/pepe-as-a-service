@@ -4,7 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint ./src --ext .js",
+    "prettier": "prettier -c ./src/**/*.js",
+    "test": "echo \"No tests yet\"",
+    "pretest": "npm run lint && npm run prettier"
   },
   "keywords": [],
   "author": "",
