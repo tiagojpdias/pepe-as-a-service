@@ -1,5 +1,10 @@
 language: node_js
 
+node:
+  - '9'
+
+before_install: if [[ `npm -v` != 9* ]]; then npm i -g npm@9; fi
+
 cache:
   directories:
     - node_modules
