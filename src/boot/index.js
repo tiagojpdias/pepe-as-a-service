@@ -5,4 +5,11 @@ const file = fs.readFileSync('tags.json', 'utf8');
 const parsedFile = JSON.parse(file);
 const tags = new Map(Object.entries(parsedFile));
 
-module.exports.tags = tags;
+const availableTags = [...tags.keys()];
+const allowedTags = availableTags.filter(tag => tag !== '__reserved');
+
+module.exports = {
+  allowedTags,
+  availableTags,
+  tags,
+};

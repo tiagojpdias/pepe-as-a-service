@@ -43,7 +43,9 @@
     "https://i1.wp.com/rare-pepe.com/wp-content/uploads/0932_-_tULNUrG.png",
     "https://i0.wp.com/rare-pepe.com/wp-content/uploads/0197_-_gvLWCIX.jpg"
   ],
-  "angryPepe": ["https://i.redd.it/yh0b3e42dfw11.png"],
-  "goodbye": ["https://i.warosu.org/data/biz/img/0055/36/1514419864572.png"],
-  "hello": ["https://pbs.twimg.com/media/DsQ28pOXQAECqhq.png"]
+  "__reserved": {
+    "angryPepe": ["https://i.redd.it/yh0b3e42dfw11.png"],
+    "goodbye": ["https://i.warosu.org/data/biz/img/0055/36/1514419864572.png"],
+    "hello": ["https://pbs.twimg.com/media/DsQ28pOXQAECqhq.png"]
+  }
 }

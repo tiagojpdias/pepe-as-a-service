@@ -1,12 +1,6 @@
 const { tags } = require('../boot');
 
-function getImage(tag) {
-  if (!tag) {
-    throw Error('Tag is missing');
-  }
-
-  const urls = tags.get(tag);
-
+function randomImage(urls) {
   if (!urls) {
     throw Error('No images for this tag');
   }
@@ -16,6 +10,19 @@ function getImage(tag) {
   return urls[index];
 }
 
+function getImage(tag) {
+  const urls = tags.get(tag);
+
+  return randomImage(urls);
+}
+
+function getReservedImage(tag) {
+  const urls = tags.get('__reserved')[tag];
+
+  return randomImage(urls);
+}
+
 module.exports = {
   getImage,
+  getReservedImage,
 };
