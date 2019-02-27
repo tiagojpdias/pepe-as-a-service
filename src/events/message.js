@@ -3,7 +3,7 @@ const { getImage, getReservedImage } = require('../utils');
 const { allowedTags } = require('../boot');
 
 const jail = new Set();
-function throttleUser(author, cb, time = process.env.MSG_THROTTLE_TIME) {
+function throttleUser(author, cb, time = process.env.MSG_THROTTLE_TIME || 30) {
   if (jail.has(author.username)) {
     return;
   }

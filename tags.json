@@ -1,6 +1,48 @@
 {
-  "😦": ["https://i.kym-cdn.com/photos/images/original/001/213/604/4c6.png"],
-  ":|": ["url3", "url4"],
+  "😦": [
+    "https://i.kym-cdn.com/photos/images/original/001/129/183/5bb.png",
+    "https://i.kym-cdn.com/photos/images/newsfeed/000/459/893/136.png",
+    "https://i.kym-cdn.com/photos/images/original/000/883/619/c40.png",
+    "https://i1.wp.com/cdn140.picsart.com/235297512024212.png",
+    "https://orig00.deviantart.net/9bdb/f/2015/069/5/8/rick___sad_pepe_by_diglididudeng-d8l8vb0.png",
+    "https://i0.wp.com/rare-pepe.com/wp-content/uploads/0788_-_JlXtPpf.png",
+    "https://i2.wp.com/rare-pepe.com/wp-content/uploads/0326_-_8X1Yumh.jpg",
+    "https://i0.wp.com/rare-pepe.com/wp-content/uploads/0702_-_wFnv0DO.jpg"
+  ],
+  "😃": [
+    "http://www.stickpng.com/assets/images/5845cd430b2a3b54fdbaecf8.png",
+    "http://www.stickpng.com/assets/images/584871d2e4e6f86ab5c3359e.png",
+    "http://www.stickpng.com/assets/images/5859b173711f64423aa5e050.png",
+    "https://i.kym-cdn.com/photos/images/original/001/142/606/dbd.png",
+    "https://s.tcdn.co/985/54d/98554d9b-45ff-370b-8cf7-0f4af8813814/3.png",
+    "https://i.imgur.com/0GQ0vur.png",
+    "https://i2.wp.com/rare-pepe.com/wp-content/uploads/0780_-_PwqHb9q.jpg",
+    "https://i1.wp.com/rare-pepe.com/wp-content/uploads/0845_-_wYpnBCo.gif"
+  ],
+  "😉": [
+    "https://cdn140.picsart.com/236830659023212.png",
+    "https://i.kym-cdn.com/photos/images/newsfeed/000/893/230/c08.png",
+    "https://steemitimages.com/0x0/http://www.infostormer.com/wp-content/uploads/2016/09/trump-pepe-frog2.png",
+    "https://i0.wp.com/rare-pepe.com/wp-content/uploads/0118_-_w6rbUP6.png"
+  ],
+  "😠": [
+    "https://img.fireden.net/co/image/1452/55/1452553334195.png",
+    "https://i.redd.it/yh0b3e42dfw11.png",
+    "https://i.kym-cdn.com/entries/icons/original/000/017/318/angry_pepe.jpg",
+    "https://i.kym-cdn.com/photos/images/original/000/934/550/6cf.png",
+    "http://i.magaimg.net/img/1ew6.png",
+    "https://i0.wp.com/rare-pepe.com/wp-content/uploads/0604_-_SSCZcUk.jpg",
+    "https://i1.wp.com/rare-pepe.com/wp-content/uploads/0068_-_xvCyjIK.png",
+    "https://i2.wp.com/rare-pepe.com/wp-content/uploads/0171_-_xeFHyag.jpg",
+    "https://i1.wp.com/rare-pepe.com/wp-content/uploads/0820_-_XcalCqt.jpg",
+    "https://i1.wp.com/rare-pepe.com/wp-content/uploads/0808_-_JsbmJ1E.jpg"
+  ],
+  "😐": [
+    "https://i.warosu.org/data/lit/img/0089/84/1484626477298.png",
+    "https://i0.wp.com/rare-pepe.com/wp-content/uploads/0727_-_5z6sPxQ.png",
+    "https://i1.wp.com/rare-pepe.com/wp-content/uploads/0932_-_tULNUrG.png",
+    "https://i0.wp.com/rare-pepe.com/wp-content/uploads/0197_-_gvLWCIX.jpg"
+  ],
   "__reserved": {
     "angryPepe": ["https://i.redd.it/yh0b3e42dfw11.png"],
     "goodbye": ["https://i.warosu.org/data/biz/img/0055/36/1514419864572.png"],
