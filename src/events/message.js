@@ -28,7 +28,8 @@ module.exports = async message => {
 
     if (gibberish.length > 0) {
       const attachment = new Attachment(getReservedImage('angryPepe'));
-      message.channel.send('**MANO SO UMA TAG DE CADA VEZ NE!!**', {
+
+      message.channel.send('**EI _BORDA_, UMA TAG DE CADA VEZ, OK?!?!**', {
         files: [attachment],
       });
 
