@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/tiagojpdias/pepe-as-a-service.svg?branch=master)](https://travis-ci.com/tiagojpdias/pepe-as-a-service)
 [![Code Quality](https://img.shields.io/scrutinizer/g/tiagojpdias/pepe-as-a-service.svg)](https://img.shields.io/scrutinizer/g/tiagojpdias/pepe-as-a-service.svg)
+[![Pepe Approved](https://img.shields.io/badge/World%20Pepe%20Association-approved-brightgreen.svg)](https://img.shields.io/badge/World%20Pepe%20Association-approved-brightgreen.svg)
 
 # Installation
 Before anything else, install the dependencies:
