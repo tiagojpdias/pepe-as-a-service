@@ -49,7 +49,7 @@ MSG_RETRY_THRESHOLD=3
 ```
 
 # Running
-If you went through the previous steps successfully, you should now be able to run **Pepe as a Service**™ with the following command:
+If you went through the previous steps successfully you should now be able to run **Pepe as a Service**™ with the following command:
  
 ```sh
 node src/app.js
