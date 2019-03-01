@@ -1,4 +1,5 @@
 const { Attachment } = require('discord.js');
+const { msgThrottleTime, msgRetryThreshold } = require('../../config');
 const { getImage, getReservedImage } = require('../utils');
 const { allowedTags } = require('../boot');
 
@@ -7,8 +8,8 @@ const retries = new Map();
 function throttleUser(
   author,
   callback,
-  throttleTime = process.env.MSG_THROTTLE_TIME || 30,
-  retryThreshold = process.env.MSG_RETRY_THRESHOLD || 3,
+  throttleTime = msgThrottleTime,
+  retryThreshold = msgRetryThreshold,
 ) {
   if (retries.has(author.username)) {
     const retryCount = retries.get(author.username) + 1;
