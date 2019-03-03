@@ -13,7 +13,7 @@ function config(configPath) {
 }
 
 function loadModules(modulePath) {
-  const files =fs.readdirSync(modulePath);
+  const files = fs.readdirSync(modulePath);
   const filesToLoad = files.filter(file => !file.startsWith('index'));
 
   filesToLoad.forEach(file => {
