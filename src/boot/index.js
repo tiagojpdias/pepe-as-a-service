@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+const tagsFile = 'tags.json';
+
 let tags = new Map();
 
 function reloadTags(file) {
@@ -20,13 +22,20 @@ function reloadTags(file) {
   }
 }
 
-fs.watch('tags.json', function listener(event, file) {
-  if (event === 'change') {
-    reloadTags(file);
+fs.watch(tagsFile, function listener(event, file) {
+  switch (event) {
+    case 'rename':
+    case 'change': {
+      reloadTags(file);
+      break;
+    }
+    default: {
+      break;
+    }
   }
 });
 
-reloadTags();
+reloadTags(tagsFile);
 
 module.exports = {
   getTags() {
