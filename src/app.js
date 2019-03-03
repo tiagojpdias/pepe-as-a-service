@@ -1,9 +1,10 @@
+require('dotenv').config();
 const { Client } = require('discord.js');
+const config = require('../config');
 const { message, ready } = require('./events');
 
 const client = new Client();
-
-client.login(process.env.BOT_TOKEN);
+client.login(config.botToken);
 
 client.on('ready', () => ready(client));
 

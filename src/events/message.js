@@ -1,20 +1,14 @@
 const { Attachment } = require('discord.js');
+const config = require('../../config');
 const { getImage, getReservedImage } = require('../utils');
 const { allowedTags } = require('../boot');
 
 const retries = new Map();
 
-/**
- * Handles user retries
- * 
- * @param {*} author
- * @param {Function} callback
- * @param {number} throttleTime
- */
 function retry(
   author,
-  retryThreshold = process.env.MSG_RETRY_THRESHOLD || 3,
-  throttleTime = process.env.MSG_THROTTLE_TIME || 30,
+  throttleTime = config.msgThrottleTime,
+  retryThreshold = config.msgRetryThreshold,
 ) {
   const retryCount = retries.get(author.username) + 1;
 
@@ -37,18 +31,7 @@ function retry(
   }
 }
 
-/**
- * Throttles user requests to avoid flooding
- * 
- * @param {*} author
- * @param {Function} callback
- * @param {number} throttleTime
- */
-function throttleUser(
-  author,
-  callback,
-  throttleTime = process.env.MSG_THROTTLE_TIME || 30,
-) {
+function throttleUser(author, callback, throttleTime = config.msgThrottleTime) {
   if (retries.has(author.username)) {
     retry(author, process.env.MSG_RETRY_THRESHOLD, throttleTime);
     return;
