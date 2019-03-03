@@ -2,32 +2,34 @@ const fs = require('fs');
 
 let tags = new Map();
 
-function reloadTags() {
+function reloadTags(file) {
   const currentDate = new Date(Date.now()).toLocaleString('PT');
 
-  const file = fs.readFileSync('tags.json', 'utf8');
-  const parsedFile = JSON.parse(file);
+  try {
+    const readFile = fs.readFileSync(file, 'utf8');
+    const parsedFile = JSON.parse(readFile);
 
-  tags = Object.entries(parsedFile).reduce((newMap, [key, value]) => {
-    newMap.set(key, value);
-    return newMap;
-  }, new Map());
+    tags = Object.entries(parsedFile).reduce((newMap, [key, value]) => {
+      newMap.set(key, value);
+      return newMap;
+    }, new Map());
 
-  console.log(`INFO :: Tags map recreated @ ${currentDate}`);
+    console.log(`INFO :: Tags map recreated @ ${currentDate}`);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
-fs.watch('tags.json', function listener(event) {
+fs.watch('tags.json', function listener(event, file) {
   if (event === 'change') {
-    reloadTags();
+    reloadTags(file);
   }
 });
 
 reloadTags();
 
-function getTags() {
-  return tags;
-}
-
 module.exports = {
-  getTags,
+  getTags() {
+    return tags;
+  },
 };
