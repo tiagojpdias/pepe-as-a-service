@@ -4,35 +4,53 @@ const { allowedTags } = require('../boot');
 
 const retries = new Map();
 
+/**
+ * Handles user retries
+ * 
+ * @param {*} author
+ * @param {Function} callback
+ * @param {number} throttleTime
+ */
+function retry(
+  author,
+  retryThreshold = process.env.MSG_RETRY_THRESHOLD || 3,
+  throttleTime = process.env.MSG_THROTTLE_TIME || 30,
+) {
+  const retryCount = retries.get(author.username) + 1;
+
+  retries.set(author.username, retryCount);
+
+  if (retryCount >= retryThreshold * 2) {
+    const attachment = new Attachment(getReservedImage('angryPepe'));
+
+    author.send('**FODA-SE PÁ, NÃO PERCEBESTE A MENSAGEM CRL?!?!**', {
+      files: [attachment],
+    });
+
+    return;
+  }
+
+  if (retryCount >= retryThreshold) {
+    author.send(
+      `_Borda_, fizeste ${retryCount} pedidos nos últimos ${throttleTime} segundos. Vamos evitar _flood_ no canal, OK?`,
+    );
+  }
+}
+
+/**
+ * Throttles user requests to avoid flooding
+ * 
+ * @param {*} author
+ * @param {Function} callback
+ * @param {number} throttleTime
+ */
 function throttleUser(
   author,
   callback,
   throttleTime = process.env.MSG_THROTTLE_TIME || 30,
-  retryThreshold = process.env.MSG_RETRY_THRESHOLD || 3,
 ) {
   if (retries.has(author.username)) {
-    const retryCount = retries.get(author.username) + 1;
-
-    retries.set(author.username, retryCount);
-
-    if (retryCount >= retryThreshold * 2) {
-      const attachment = new Attachment(getReservedImage('angryPepe'));
-
-      author.send('**FODA-SE PÁ, NÃO PERCEBESTE A MENSAGEM CRL?!?!**', {
-        files: [attachment],
-      });
-
-      return;
-    }
-
-    if (retryCount >= retryThreshold) {
-      author.send(
-        `_Borda_, fizeste ${retryCount} pedidos nos últimos ${throttleTime} segundos. Vamos evitar _flood_ no canal, OK?`,
-      );
-
-      return;
-    }
-
+    retry(author, process.env.MSG_RETRY_THRESHOLD, throttleTime);
     return;
   }
 
@@ -81,9 +99,7 @@ module.exports = async message => {
       const image = getImage(tag);
 
       throttleUser(message.author, () => {
-        const attachment = new Attachment(image);
-
-        message.channel.send(attachment);
+        message.channel.send(new Attachment(image));
       });
     } catch (e) {
       console.log(e);
