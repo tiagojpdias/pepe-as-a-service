@@ -1,7 +1,7 @@
 const { Attachment } = require('discord.js');
 const config = require('../../config');
 const { getImage, getReservedImage } = require('../utils');
-const { allowedTags } = require('../boot');
+const { getTags } = require('../boot');
 
 const retries = new Map();
 
@@ -69,6 +69,10 @@ module.exports = async message => {
 
       return;
     }
+
+    const allowedTags = [...getTags().keys()].filter(
+      key => key !== '__reserved',
+    );
 
     if (!allowedTags.includes(tag)) {
       message.channel.send(`Tags :: ${allowedTags.join(' , ')}`);
