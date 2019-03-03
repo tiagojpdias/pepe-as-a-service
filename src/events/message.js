@@ -5,11 +5,7 @@ const { allowedTags } = require('../boot');
 
 const retries = new Map();
 
-function retry(
-  author,
-  throttleTime = config.msgThrottleTime,
-  retryThreshold = config.msgRetryThreshold,
-) {
+function handleRetry(author, retryThreshold = config.msgRetryThreshold) {
   const retryCount = retries.get(author.username) + 1;
 
   retries.set(author.username, retryCount);
@@ -26,14 +22,16 @@ function retry(
 
   if (retryCount >= retryThreshold) {
     author.send(
-      `_Borda_, fizeste ${retryCount} pedidos nos últimos ${throttleTime} segundos. Vamos evitar _flood_ no canal, OK?`,
+      `_Borda_, fizeste ${retryCount} pedidos nos últimos ${
+        config.msgThrottleTime
+      } segundos. Vamos evitar _flood_ no canal, OK?`,
     );
   }
 }
 
 function throttleUser(author, callback, throttleTime = config.msgThrottleTime) {
   if (retries.has(author.username)) {
-    retry(author, process.env.MSG_RETRY_THRESHOLD, throttleTime);
+    handleRetry(author);
     return;
   }
 
@@ -67,7 +65,7 @@ module.exports = async message => {
     }
 
     if (!tag) {
-      message.channel.send(`Exemplo :: _${username} {tag}_`);
+      message.author.send(`Exemplo :: _${username} {tag}_`);
 
       return;
     }
