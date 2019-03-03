@@ -13,7 +13,6 @@ function reloadTags() {
     return newMap;
   }, new Map());
 
-
   console.log(`INFO :: Tags map recreated @ ${currentDate}`);
 }
 
