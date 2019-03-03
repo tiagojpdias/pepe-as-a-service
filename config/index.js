@@ -1,18 +1,30 @@
-const config = {
-  messages: {
-    enter: 'bom dia a todos menos a um',
-    exit: 'XAU AI _BORDAS_',
-  },
+const fs = require('fs');
 
-  activities: {
-    enter: 'Pepe as a Service',
-    exit: `Screw u guys I'm going home`,
-  },
+const modules = {};
 
-  botToken: process.env.BOT_TOKEN || '',
-  mainChannelId: process.env.MAIN_CHANNEL_ID || '',
-  msgThrottleTime: process.env.MSG_THROTTLE_TIME || 30,
-  msgRetryThreshold: process.env.MSG_RETRY_THRESHOLD || 4,
-};
+function config(configPath) {
+  if (!configPath) {
+    return undefined;
+  }
+
+  const [fileName, ...property] = configPath.split('.');
+
+  return modules[fileName][property];
+}
+
+function loadModules(modulePath) {
+  const files =fs.readdirSync(modulePath);
+  const filesToLoad = files.filter(file => !file.startsWith('index'));
+
+  filesToLoad.forEach(file => {
+    const [fileName] = file.split('.');
+
+    // eslint-disable-next-line import/no-dynamic-require
+    // eslint-disable-next-line global-require
+    modules[fileName] = require(`./${fileName}`);
+  });
+}
+
+loadModules(__dirname);
 
 module.exports = config;

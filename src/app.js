@@ -4,7 +4,7 @@ const config = require('../config');
 const { message, ready } = require('./events');
 
 const client = new Client();
-client.login(config.botToken);
+client.login(config('bot.token'));
 
 client.on('ready', () => ready(client));
 
