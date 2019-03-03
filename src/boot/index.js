@@ -3,6 +3,8 @@ const fs = require('fs');
 let tags = new Map();
 
 function reloadTags() {
+  const currentDate = new Date(Date.now()).toLocaleString('PT');
+
   const file = fs.readFileSync('tags.json', 'utf8');
   const parsedFile = JSON.parse(file);
 
@@ -10,11 +12,18 @@ function reloadTags() {
     newMap.set(key, value);
     return newMap;
   }, new Map());
+
+
+  console.log(`INFO :: Tags map recreated @ ${currentDate}`);
 }
 
-reloadTags();
+fs.watch('tags.json', function listener(event) {
+  if (event === 'change') {
+    reloadTags();
+  }
+});
 
-setInterval(reloadTags, 10 * 1000);
+reloadTags();
 
 function getTags() {
   return tags;
