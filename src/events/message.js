@@ -62,7 +62,7 @@ module.exports = async message => {
       key => key !== '__reserved',
     );
 
-    const [username, tag, ...gibberish] = content.trim().split(' ');
+    const [, tag, ...gibberish] = content.trim().split(' ');
 
     if (gibberish.length > 0) {
       const attachment = new Attachment(getReservedImage('angryPepe'));
