@@ -2,6 +2,7 @@ const { Attachment } = require('discord.js');
 const config = require('../../config');
 const { getImage, getReservedImage } = require('../utils');
 const { getTags } = require('../boot');
+const logger = require('../utils/logger');
 
 const retries = new Map();
 
@@ -94,7 +95,7 @@ module.exports = async message => {
         }
       });
     } catch (e) {
-      console.log(e);
+      logger.warn(e);
     }
   }
 };

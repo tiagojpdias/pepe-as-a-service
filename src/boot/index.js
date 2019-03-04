@@ -1,4 +1,5 @@
 const fs = require('fs');
+const logger = require('../utils/logger');
 
 const tagsFile = 'tags.json';
 
@@ -16,9 +17,9 @@ function reloadTags(file) {
       return newMap;
     }, new Map());
 
-    console.log(`INFO :: Tags map recreated @ ${currentDate}`);
+    logger.info(`Tags map recreated @ ${currentDate}`);
   } catch (e) {
-    console.error(e);
+    logger.error(e);
   }
 }
 
