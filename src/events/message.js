@@ -5,35 +5,37 @@ const { allowedTags } = require('../boot');
 
 const retries = new Map();
 
+function handleRetry(author, retryThreshold = config('bot.msgRetryThreshold')) {
+  const retryCount = retries.get(author.username) + 1;
+
+  retries.set(author.username, retryCount);
+
+  if (retryCount >= retryThreshold * 2) {
+    const attachment = new Attachment(getReservedImage('angryPepe'));
+
+    author.send('**FODA-SE PÁ, NÃO PERCEBESTE A MENSAGEM CRL?!?!**', {
+      files: [attachment],
+    });
+
+    return;
+  }
+
+  if (retryCount >= retryThreshold) {
+    author.send(
+      `_Borda_, fizeste ${retryCount} pedidos nos últimos ${config(
+        'bot.msgThrottleTime',
+      )} segundos. Vamos evitar _flood_ no canal, OK?`,
+    );
+  }
+}
+
 function throttleUser(
   author,
   callback,
-  throttleTime = config.msgThrottleTime,
-  retryThreshold = config.msgRetryThreshold,
+  throttleTime = config('bot.msgThrottleTime'),
 ) {
   if (retries.has(author.username)) {
-    const retryCount = retries.get(author.username) + 1;
-
-    retries.set(author.username, retryCount);
-
-    if (retryCount >= retryThreshold * 2) {
-      const attachment = new Attachment(getReservedImage('angryPepe'));
-
-      author.send('**FODA-SE PÁ, NÃO PERCEBESTE A MENSAGEM CRL?!?!**', {
-        files: [attachment],
-      });
-
-      return;
-    }
-
-    if (retryCount >= retryThreshold) {
-      author.send(
-        `_Borda_, fizeste ${retryCount} pedidos nos últimos ${throttleTime} segundos. Vamos evitar _flood_ no canal, OK?`,
-      );
-
-      return;
-    }
-
+    handleRetry(author);
     return;
   }
 
@@ -73,7 +75,7 @@ module.exports = async message => {
     }
 
     if (!allowedTags.includes(tag)) {
-      message.channel.send(`Tags :: ${allowedTags.join(' , ')}`);
+      message.author.send(`Tags :: ${allowedTags.join(' , ')}`);
 
       return;
     }
@@ -81,10 +83,11 @@ module.exports = async message => {
     try {
       const image = getImage(tag);
 
-      throttleUser(message.author, () => {
-        const attachment = new Attachment(image);
-
-        message.channel.send(attachment);
+      throttleUser(message.author, async () => {
+        const deleted = await message.delete();
+        if (deleted) {
+          await message.channel.send(new Attachment(image));
+        }
       });
     } catch (e) {
       console.log(e);
