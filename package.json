@@ -4,9 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node src/app.js",
     "lint": "eslint ./src --ext .js",
-    "prettier": "prettier -c ./src/**/*.js",
+    "prettier": "prettier -c ./**/*.js",
     "test": "echo \"No tests yet\"",
     "pretest": "npm run lint && npm run prettier"
   },

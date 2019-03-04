@@ -5,7 +5,7 @@ const { getTags } = require('../boot');
 
 const retries = new Map();
 
-function handleRetry(author, retryThreshold = config.msgRetryThreshold) {
+function handleRetry(author, retryThreshold = config('bot.msgRetryThreshold')) {
   const retryCount = retries.get(author.username) + 1;
 
   retries.set(author.username, retryCount);
@@ -22,14 +22,18 @@ function handleRetry(author, retryThreshold = config.msgRetryThreshold) {
 
   if (retryCount >= retryThreshold) {
     author.send(
-      `_Borda_, fizeste ${retryCount} pedidos nos últimos ${
-        config.msgThrottleTime
-      } segundos. Vamos evitar _flood_ no canal, OK?`,
+      `_Borda_, fizeste ${retryCount} pedidos nos últimos ${config(
+        'bot.msgThrottleTime',
+      )} segundos. Vamos evitar _flood_ no canal, OK?`,
     );
   }
 }
 
-function throttleUser(author, callback, throttleTime = config.msgThrottleTime) {
+function throttleUser(
+  author,
+  callback,
+  throttleTime = config('bot.msgThrottleTime'),
+) {
   if (retries.has(author.username)) {
     handleRetry(author);
     return;
@@ -75,7 +79,7 @@ module.exports = async message => {
     );
 
     if (!allowedTags.includes(tag)) {
-      message.channel.send(`Tags :: ${allowedTags.join(' , ')}`);
+      message.author.send(`Tags :: ${allowedTags.join(' , ')}`);
 
       return;
     }
@@ -83,8 +87,11 @@ module.exports = async message => {
     try {
       const image = getImage(tag);
 
-      throttleUser(message.author, () => {
-        message.channel.send(new Attachment(image));
+      throttleUser(message.author, async () => {
+        const deleted = await message.delete();
+        if (deleted) {
+          await message.channel.send(new Attachment(image));
+        }
       });
     } catch (e) {
       console.log(e);
