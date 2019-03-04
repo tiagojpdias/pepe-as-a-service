@@ -38,7 +38,5 @@ fs.watch(tagsFile, function listener(event, file) {
 reloadTags(tagsFile);
 
 module.exports = {
-  getTags() {
-    return tags;
-  },
+  getTags: () => tags,
 };
