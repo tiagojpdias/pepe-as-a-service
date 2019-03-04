@@ -114,9 +114,7 @@ module.exports = async message => {
         try {
           if (message.editable) {
             await message.edit(attachment);
-          }
-
-          if (message.deletable) {
+          } else if (message.deletable) {
             await message.delete();
           }
 
