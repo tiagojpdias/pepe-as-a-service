@@ -2,6 +2,7 @@ const { Attachment } = require('discord.js');
 const config = require('../../config');
 const { getImage, getReservedImage } = require('../utils');
 const { getTags } = require('../boot');
+const logger = require('../utils/logger');
 
 const retries = new Map();
 
@@ -36,7 +37,7 @@ function throttleUser(
 ) {
   if (retries.has(author.id)) {
     handleRetry(author);
-    throw Error('Preventing flood.');
+    throw Error(`Preventing flood from ${author.username}.`);
   }
 
   setInterval(() => {
@@ -81,7 +82,7 @@ module.exports = async message => {
           await message.delete();
         }
       } catch (e) {
-        console.log('WARNING :: ', e.message);
+        logger.warn(e.message);
       }
 
       return;
@@ -99,7 +100,7 @@ module.exports = async message => {
           }
         }
       } catch (e) {
-        console.log('WARNING :: ', e.message);
+        logger.warn(e.message);
       }
 
       return;
@@ -120,11 +121,11 @@ module.exports = async message => {
 
           await channel.send(attachment);
         } catch (e) {
-          console.log('WARNING :: ', e.message);
+          logger.warn('WARNING :: ', e.message);
         }
       });
     } catch (e) {
-      console.log('WARNING :: ', e.message);
+      logger.warn(e.message);
 
       if (message.deletable) {
         await message.delete();

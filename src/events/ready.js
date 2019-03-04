@@ -1,4 +1,5 @@
 const config = require('../../config');
+const logger = require('../utils/logger');
 
 const currentDate = new Date(Date.now()).toLocaleString('PT');
 
@@ -17,5 +18,5 @@ module.exports = async client => {
     }
   });
 
-  console.log(`READY :: Pepe-As-A-Service started @ ${currentDate}`);
+  logger.info(`Pepe-As-A-Service started @ ${currentDate}`);
 };
