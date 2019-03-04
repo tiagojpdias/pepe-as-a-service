@@ -1,14 +1,42 @@
 const fs = require('fs');
 
-const file = fs.readFileSync('tags.json', 'utf8');
-const parsedFile = JSON.parse(file);
-const tags = new Map(Object.entries(parsedFile));
+const tagsFile = 'tags.json';
 
-const availableTags = [...tags.keys()];
-const allowedTags = availableTags.filter(tag => tag !== '__reserved');
+let tags = new Map();
+
+function reloadTags(file) {
+  const currentDate = new Date(Date.now()).toLocaleString('PT');
+
+  try {
+    const readFile = fs.readFileSync(file, 'utf8');
+    const parsedFile = JSON.parse(readFile);
+
+    tags = Object.entries(parsedFile).reduce((newMap, [key, value]) => {
+      newMap.set(key, value);
+      return newMap;
+    }, new Map());
+
+    console.log(`INFO :: Tags map recreated @ ${currentDate}`);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+fs.watch(tagsFile, function listener(event, file) {
+  switch (event) {
+    case 'rename':
+    case 'change': {
+      reloadTags(file);
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+});
+
+reloadTags(tagsFile);
 
 module.exports = {
-  allowedTags,
-  availableTags,
-  tags,
+  getTags: () => tags,
 };

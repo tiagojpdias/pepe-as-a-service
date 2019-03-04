@@ -1,4 +1,4 @@
-const { tags } = require('../boot');
+const { getTags } = require('../boot');
 
 function randomImage(urls) {
   if (!urls) {
@@ -11,13 +11,13 @@ function randomImage(urls) {
 }
 
 function getImage(tag) {
-  const urls = tags.get(tag);
+  const urls = getTags().get(tag);
 
   return randomImage(urls);
 }
 
 function getReservedImage(tag) {
-  const urls = tags.get('__reserved')[tag];
+  const urls = getTags().get('__reserved')[tag];
 
   return randomImage(urls);
 }
