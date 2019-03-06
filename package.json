@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node dist/src/app.js",
+    "start": "npm run build-ts && node dist/src/app.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "test": "echo \"No tests yet\"",
     "pretest": "npm run lint && npm run lint",

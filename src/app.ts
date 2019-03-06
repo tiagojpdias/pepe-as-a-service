@@ -1,9 +1,9 @@
-import { Client } from 'discord.js';
 import dotenv from 'dotenv';
+dotenv.config();
+
+import { Client } from 'discord.js';
 import config from '../config';
 import { message, ready } from './events';
-
-dotenv.config();
 
 const client: Client = new Client();
 
