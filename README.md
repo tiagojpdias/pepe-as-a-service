@@ -1,7 +1,7 @@
 # Pepe as a Service
 
 [![Build Status](https://travis-ci.com/tiagojpdias/pepe-as-a-service.svg?branch=master)](https://travis-ci.com/tiagojpdias/pepe-as-a-service)
-[![Code Quality](https://img.shields.io/scrutinizer/g/tiagojpdias/pepe-as-a-service.svg)](https://img.shields.io/scrutinizer/g/tiagojpdias/pepe-as-a-service.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e378655234fa43cb93d1fd4f84b346e5)](https://app.codacy.com/app/tiagojpdias/pepe-as-a-service?utm_source=github.com&utm_medium=referral&utm_content=tiagojpdias/pepe-as-a-service&utm_campaign=Badge_Grade_Dashboard)
 [![Pepe Approved](https://img.shields.io/badge/World%20Pepe%20Association-approved-brightgreen.svg)](https://img.shields.io/badge/World%20Pepe%20Association-approved-brightgreen.svg)
 
 # Installation
