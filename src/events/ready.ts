@@ -1,9 +1,10 @@
-const config = require('../../config');
-const logger = require('../utils/logger');
+import { Client } from 'discord.js';
+import config from '../../config';
+import { logger } from '../utils';
 
 const currentDate = new Date(Date.now()).toLocaleString('PT');
 
-module.exports = async client => {
+async function readyEvent(client: Client) {
   const { user } = client;
 
   await user.setActivity(config('activities.enter'));
@@ -19,4 +20,6 @@ module.exports = async client => {
   });
 
   logger.info(`Pepe-As-A-Service started @ ${currentDate}`);
-};
+}
+
+export default readyEvent;

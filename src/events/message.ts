@@ -1,13 +1,21 @@
-const { Attachment } = require('discord.js');
-const config = require('../../config');
-const { getImage, getReservedImage } = require('../utils');
-const { getTags } = require('../boot');
-const logger = require('../utils/logger');
+import { Attachment, Message, User } from 'discord.js';
+import config from '../../config';
+import { getTags } from '../boot';
+import { getImage, getReservedImage, logger } from '../utils';
 
-const retries = new Map();
+const retries: Map<string, number> = new Map();
 
-function handleRetry(author, retryThreshold = config('bot.msgRetryThreshold')) {
-  const retryCount = retries.get(author.id) + 1;
+/**
+ * Handles user retries when cooldown
+ *
+ * @param author: User
+ * @param retryThreshold: Number
+ */
+function handleRetry(
+  author: User,
+  retryThreshold: number = config('bot.msgRetryThreshold'),
+) {
+  const retryCount: number = retries.get(author.id) + 1;
 
   retries.set(author.id, retryCount);
 
@@ -30,11 +38,18 @@ function handleRetry(author, retryThreshold = config('bot.msgRetryThreshold')) {
   }
 }
 
+/**
+ * Throttle user requests to avoid channel flood
+ *
+ * @param author: User
+ * @param callback: Function
+ * @param throttleTime: Number
+ */
 function throttleUser(
-  author,
-  callback,
-  throttleTime = config('bot.msgThrottleTime'),
-) {
+  author: User,
+  callback: () => void,
+  throttleTime: number = config('bot.msgThrottleTime'),
+): void {
   if (retries.has(author.id)) {
     handleRetry(author);
     throw Error(`Preventing flood from ${author.username}.`);
@@ -49,21 +64,26 @@ function throttleUser(
   callback();
 }
 
-module.exports = async message => {
+/**
+ * Handles Discord's message event
+ *
+ * @param message: Message
+ */
+async function messageEvent(message: Message): Promise<any> {
   const { author, client, content, channel } = message;
 
   if (author.bot) {
     return;
   }
 
-  const botUsername = client.user.toString();
+  const botUsername: string = client.user.toString();
 
   if (content.startsWith(botUsername)) {
-    const allowedTags = [...getTags().keys()].filter(
-      key => key !== '__reserved',
+    const allowedTags: string[] = [...getTags().keys()].filter(
+      (key: string) => key !== '__reserved',
     );
 
-    const [, tag, ...gibberish] = content.trim().split(' ');
+    const [, tag, ...gibberish]: string[] = content.trim().split(' ');
 
     if (gibberish.length > 0) {
       const attachment = new Attachment(getReservedImage('angryPepe'));
@@ -91,7 +111,7 @@ module.exports = async message => {
     if (!tag || !allowedTags.includes(tag)) {
       try {
         if (message.deletable) {
-          const deleted = await message.delete();
+          const deleted: Message = await message.delete();
 
           if (deleted) {
             throttleUser(author, async () => {
@@ -107,23 +127,26 @@ module.exports = async message => {
     }
 
     try {
-      const image = getImage(tag);
+      const image: string = getImage(tag);
 
-      throttleUser(author, async () => {
-        const attachment = new Attachment(image);
+      throttleUser(
+        author,
+        async (): Promise<void> => {
+          const attachment: Attachment = new Attachment(image);
 
-        try {
-          if (message.editable) {
-            await message.edit(attachment);
-          } else if (message.deletable) {
-            await message.delete();
+          try {
+            if (message.editable) {
+              await message.edit(attachment);
+            } else if (message.deletable) {
+              await message.delete();
+            }
+
+            await channel.send(attachment);
+          } catch (e) {
+            logger.warn('WARNING :: ', e.message);
           }
-
-          await channel.send(attachment);
-        } catch (e) {
-          logger.warn('WARNING :: ', e.message);
-        }
-      });
+        },
+      );
     } catch (e) {
       logger.warn(e.message);
 
@@ -132,4 +155,6 @@ module.exports = async message => {
       }
     }
   }
-};
+}
+
+export default messageEvent;

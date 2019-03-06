@@ -5,7 +5,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/src/app.js"
+      "program": "${workspaceFolder}/dist/src/app.js"
     }
   ]
 }
