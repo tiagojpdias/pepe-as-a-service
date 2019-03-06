@@ -5,17 +5,21 @@
 [![Pepe Approved](https://img.shields.io/badge/World%20Pepe%20Association-approved-brightgreen.svg)](https://img.shields.io/badge/World%20Pepe%20Association-approved-brightgreen.svg)
 
 # Installation
+
 Before anything else, install the dependencies:
+
 ```sh
 yarn install
 ```
 
 or for those who prefer `npm`:
+
 ```sh
 npm install
 ```
 
 # Configuration
+
 After installing the dependencies, it's time for a quick configuration.
 
 Create a `.env` file in the project root.
@@ -23,10 +27,10 @@ Create a `.env` file in the project root.
 ```sh
 cp .env_example .env
 ```
- 
+
 Add and replace values where needed:
 
-```
+```env
 #
 # Discord bot token
 #
@@ -49,15 +53,18 @@ MSG_RETRY_THRESHOLD=3
 ```
 
 # Running
+
 If you went through the previous steps successfully, you should now be able to run **Pepe as a Service**™ with the following command:
- 
+
 ```sh
-node src/app.js
+npm start
 ```
 
 You should see an output similar to this:
+
 ```sh
-READY :: Pepe-As-A-Service started @ 2019-2-27 21:27:00
+info: Tags map recreated @ 3/6/2019, 6:56:47 PM
+info: Pepe-As-A-Service started @ 3/6/2019, 6:56:47 PM
 ```
 
 That's it!
