@@ -9,7 +9,7 @@ function config(configPath: string): any {
 
   const module: any = modules[fileName];
 
-  if (! module) {
+  if (!module) {
     const importedModule: any = require(`./${fileName}`).default;
     modules[fileName] = importedModule;
 
