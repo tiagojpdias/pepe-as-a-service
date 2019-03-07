@@ -15,6 +15,9 @@
         "object-literal-shorthand": true,
         "object-literal-sort-keys": false,
         "no-empty-interface": false,
-        "max-line-length": [true, 200]
+        "max-line-length": [true, 200],
+        "linebreak-style": true,
+        "newline-before-return": true,
+        "one-line": true
     }
 }

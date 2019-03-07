@@ -7,14 +7,14 @@ const currentDate: string = new Date(Date.now()).toLocaleString('PT');
 async function readyEvent(client: Client) {
   const { user }: Client = client;
 
-  await user.setActivity(config('activities.enter'));
+  await user.setActivity(config('activities.enter') as string);
   await user.setStatus('online');
 
   process.on('SIGINT', async () => {
     const newStatus: ClientUser = await user.setStatus('dnd');
-    const newActivity: Presence = await user.setActivity(
-      config('activities.exit'),
-    );
+    const newActivity: Presence = await user.setActivity(config(
+      'activities.exit',
+    ) as string);
 
     if (newStatus && newActivity) {
       process.exit(0);

@@ -1,6 +1,6 @@
 const modules: any = {};
 
-function config(configPath: string): any {
+function config(configPath: string): number | string | boolean | undefined {
   if (!configPath) {
     return undefined;
   }

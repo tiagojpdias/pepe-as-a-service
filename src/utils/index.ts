@@ -12,7 +12,7 @@ function randomImage(urls: string[]): string {
 }
 
 function getImage(tag: string): string {
-  const urls: string[] = getTags().get(tag);
+  const urls: string[] = getTags().get(tag) as string[];
 
   return randomImage(urls);
 }

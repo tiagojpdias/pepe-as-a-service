@@ -7,6 +7,6 @@ import { message, ready } from './events';
 
 const client: Client = new Client();
 
-client.login(config('bot.token'));
+client.login(config('bot.token') as string);
 client.on('ready', () => ready(client));
 client.on('message', message);

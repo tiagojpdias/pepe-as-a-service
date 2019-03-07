@@ -13,9 +13,10 @@ const retries: Map<string, number> = new Map();
  */
 function handleRetry(
   author: User,
-  retryThreshold: number = config('bot.msgRetryThreshold'),
+  retryThreshold: number = config('bot.msgRetryThreshold') as number,
 ) {
-  const retryCount: number = retries.get(author.id) + 1;
+  const authorRetries: number = retries.get(author.id) || 1;
+  const retryCount: number = authorRetries + 1;
 
   retries.set(author.id, retryCount);
 
@@ -35,7 +36,7 @@ function handleRetry(
     author.send(
       `_Borda_, fizeste ${retryCount} pedidos nos últimos ${config(
         'bot.msgThrottleTime',
-      )} segundos. Vamos evitar _flood_ no canal, OK?`,
+      ) as number} segundos. Vamos evitar _flood_ no canal, OK?`,
     );
   }
 }
@@ -50,7 +51,7 @@ function handleRetry(
 function throttleUser(
   author: User,
   callback: () => void,
-  throttleTime: number = config('bot.msgThrottleTime'),
+  throttleTime: number = config('bot.msgThrottleTime') as number,
 ): void {
   if (retries.has(author.id)) {
     handleRetry(author);

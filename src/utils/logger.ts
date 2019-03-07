@@ -1,7 +1,7 @@
 import winston, { Logger } from 'winston';
 import config from '../../config';
 
-const logsPath: string = config('logs.path');
+const logsPath: string = config('logs.path') as string;
 
 const logger: Logger = winston.createLogger({
   format: winston.format.json(),

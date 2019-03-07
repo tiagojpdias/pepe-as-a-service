@@ -2,7 +2,7 @@ import fs from 'fs';
 import config from '../../config';
 import { logger } from '../utils';
 
-const tagsFile: string = config('bot.tagsFileName');
+const tagsFile: string = config('bot.tagsFileName') as string;
 
 let tags: Map<string, string[]> = new Map();
 
@@ -16,6 +16,7 @@ function reloadTags(file: string): void {
     tags = Object.entries(parsedFile).reduce(
       (newMap: Map<string, string>, [key, value]) => {
         newMap.set(key, value);
+
         return newMap;
       },
       new Map(),
