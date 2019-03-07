@@ -4,14 +4,25 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node src/app.js",
-    "lint": "eslint ./src --ext .js",
-    "prettier": "prettier -c ./**/*.js",
+    "start": "npm run build-ts && node dist/src/app.js",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
     "test": "echo \"No tests yet\"",
-    "pretest": "npm run lint && npm run prettier"
+    "pretest": "npm run lint",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "watch": "npm run build-ts && concurrently -k -p \"[{name}]\" -n \"Watch,Run\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm start\""
   },
-  "keywords": [],
+  "keywords": [
+    "bot",
+    "Pepe the Frog",
+    "Discord"
+  ],
   "author": "",
+  "contributors": [
+    "Carlos Martins",
+    "Quetzy Garcia",
+    "Tiago Dias"
+  ],
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.4.2",
@@ -19,11 +30,16 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "eslint": "^5.14.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^4.0.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-prettier": "^3.0.1",
-    "prettier": "^1.16.4"
+    "@types/node": "^11.10.4",
+    "@types/dotenv": "^6.1.0",
+    "@types/strip-json-comments": "0.0.30",
+    "@types/winston": "^2.4.4",
+    "concurrently": "^4.1.0",
+    "prettier": "^1.16.4",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.13.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.3.3333"
   }
 }
