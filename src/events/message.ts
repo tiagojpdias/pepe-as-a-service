@@ -20,7 +20,9 @@ function handleRetry(
   retries.set(author.id, retryCount);
 
   if (retryCount >= retryThreshold * 2) {
-    const attachment = new Attachment(getReservedImage('angryPepe'));
+    const attachment: Attachment = new Attachment(
+      getReservedImage('angryPepe'),
+    );
 
     author.send('**FODA-SE PÁ, NÃO PERCEBESTE A MENSAGEM CRL?!?!**', {
       files: [attachment],

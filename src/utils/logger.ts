@@ -1,9 +1,9 @@
-import winston from 'winston';
+import winston, { Logger } from 'winston';
 import config from '../../config';
 
 const logsPath: string = config('logs.path');
 
-const logger = winston.createLogger({
+const logger: Logger = winston.createLogger({
   format: winston.format.json(),
   level: 'info',
   transports: [
