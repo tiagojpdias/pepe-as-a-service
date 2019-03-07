@@ -1,5 +1,10 @@
+import request from 'request';
+import sharp from 'sharp';
+import config from '../../config';
 import { getTags } from '../boot';
 import logger from './logger';
+
+const requestInstance = request.defaults({ encoding: null });
 
 function randomImage(urls: string[]): string {
   if (!urls) {
@@ -25,4 +30,17 @@ function getReservedImage(tag: string): string {
   return randomImage(urls);
 }
 
-export { getImage, getReservedImage, logger };
+function getResizedImage(imagePath: string, cb: any) {
+  requestInstance.get(imagePath, async (err: any, response: any, body: any) => {
+    const resizedImage = await sharp(Buffer.from(body))
+      .resize(
+        config('images.height') as number,
+        config('images.width') as number,
+      )
+      .toBuffer();
+
+    cb(resizedImage);
+  });
+}
+
+export { getImage, getReservedImage, logger, getResizedImage };

@@ -1,7 +1,7 @@
 import { Attachment, Message, User } from 'discord.js';
 import config from '../../config';
 import { getTags } from '../boot';
-import { getImage, getReservedImage, logger } from '../utils';
+import { getImage, getReservedImage, getResizedImage, logger } from '../utils';
 
 const retries: Map<string, number> = new Map();
 
@@ -135,19 +135,21 @@ async function messageEvent(message: Message): Promise<any> {
       throttleUser(
         author,
         async (): Promise<void> => {
-          const attachment: Attachment = new Attachment(image);
+          getResizedImage(image, async (resizedImage: Buffer) => {
+            const attachment: Attachment = new Attachment(resizedImage);
 
-          try {
-            if (message.editable) {
-              await message.edit(attachment);
-            } else if (message.deletable) {
-              await message.delete();
+            try {
+              if (message.editable) {
+                await message.edit(attachment);
+              } else if (message.deletable) {
+                await message.delete();
+              }
+
+              await channel.send(attachment);
+            } catch (e) {
+              logger.warn('WARNING :: ', e.message);
             }
-
-            await channel.send(attachment);
-          } catch (e) {
-            logger.warn('WARNING :: ', e.message);
-          }
+          });
         },
       );
     } catch (e) {
