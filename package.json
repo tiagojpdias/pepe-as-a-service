@@ -7,7 +7,7 @@
     "start": "npm run build-ts && node dist/src/app.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "test": "echo \"No tests yet\"",
-    "pretest": "npm run lint && npm run lint",
+    "pretest": "npm run lint",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "watch": "npm run build-ts && concurrently -k -p \"[{name}]\" -n \"Watch,Run\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm start\""

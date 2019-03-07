@@ -4,6 +4,7 @@
       "esModuleInterop": true,
       "target": "es6",
       "noUnusedLocals": true,
+      "strictNullChecks": true,
       "types": [
         "node"
       ],
