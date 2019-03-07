@@ -25,12 +25,12 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^11.10.4",
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "@types/node": "^11.10.4",
     "@types/dotenv": "^6.1.0",
     "@types/strip-json-comments": "0.0.30",
     "@types/winston": "^2.4.4",
