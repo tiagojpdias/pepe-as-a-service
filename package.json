@@ -27,11 +27,15 @@
   "dependencies": {
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
+    "request": "^2.88.0",
+    "sharp": "^0.21.3",
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@types/node": "^11.10.4",
     "@types/dotenv": "^6.1.0",
+    "@types/node": "^11.10.4",
+    "@types/request": "^2.48.1",
+    "@types/sharp": "^0.21.3",
     "@types/strip-json-comments": "0.0.30",
     "@types/winston": "^2.4.4",
     "concurrently": "^4.1.0",
