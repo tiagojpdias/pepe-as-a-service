@@ -2,10 +2,10 @@ export default {
   /**
    * Image width
    */
-  width: 100,
+  width: 125,
 
   /**
    * Image height
    */
-  height: 100,
+  height: 125,
 };
