@@ -21,9 +21,9 @@ function handleRetry(
   retries.set(author.id, retryCount);
 
   if (retryCount >= retryThreshold * 2) {
-    const attachment: Attachment = new Attachment(
-      getReservedImage('angryPepe'),
-    );
+    const attachment: Attachment = new Attachment(getReservedImage(
+      'angryPepe',
+    ) as string);
 
     author.send('**FODA-SE PÁ, NÃO PERCEBESTE A MENSAGEM CRL?!?!**', {
       files: [attachment],
@@ -89,7 +89,9 @@ async function messageEvent(message: Message): Promise<any> {
     const [, tag, ...gibberish]: string[] = content.trim().split(' ');
 
     if (gibberish.length > 0) {
-      const attachment = new Attachment(getReservedImage('angryPepe'));
+      const attachment = new Attachment(getReservedImage(
+        'angryPepe',
+      ) as string);
 
       try {
         const warned = await author.send(
@@ -130,7 +132,7 @@ async function messageEvent(message: Message): Promise<any> {
     }
 
     try {
-      const image: string = getImage(tag);
+      const image: string = getImage(tag) as string;
 
       throttleUser(
         author,

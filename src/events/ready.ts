@@ -48,7 +48,7 @@ function displayMessage(client: Client, type: MessageType): void {
 
   switch (type) {
     case MessageType.enter: {
-      const helloImage = new Attachment(getReservedImage('hello'));
+      const helloImage = new Attachment(getReservedImage('hello') as string);
 
       channel.send(config('messages.enter'), {
         files: [helloImage],
@@ -56,7 +56,9 @@ function displayMessage(client: Client, type: MessageType): void {
       break;
     }
     case MessageType.exit: {
-      const goodbyeImage = new Attachment(getReservedImage('goodbye'));
+      const goodbyeImage = new Attachment(getReservedImage(
+        'goodbye',
+      ) as string);
 
       channel.send(config('messages.leave'), {
         files: [goodbyeImage],
