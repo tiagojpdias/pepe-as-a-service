@@ -10,10 +10,14 @@ function config(configPath: string): number | string | boolean | undefined {
   const module: any = modules[fileName];
 
   if (!module) {
-    const importedModule: any = require(`./${fileName}`).default;
-    modules[fileName] = importedModule;
+    try {
+      const importedModule: any = require(`./${fileName}`).default;
+      modules[fileName] = importedModule;
 
-    return importedModule[property];
+      return importedModule[property];
+    } catch {
+      return undefined;
+    }
   }
 
   return module[property];
