@@ -32,11 +32,11 @@ function getReservedImage(tag: string): string {
 
 function getResizedImage(imagePath: string, cb: any) {
   requestInstance.get(imagePath, async (err: any, response: any, body: any) => {
-    const resizedImage = await sharp(Buffer.from(body)).resize(
-      config('images.height') as number,
-      config('images.width') as number,
-      { fit: 'fill' },
-    );
+    const resizedImage = await sharp(Buffer.from(body)).resize(null, null, {
+      width: config('images.height') as number,
+      height: config('images.width') as number,
+      fit: config('images.fit') as any,
+    });
 
     cb(resizedImage);
   });

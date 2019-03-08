@@ -8,4 +8,9 @@ export default {
    * Image height
    */
   height: 125,
+
+  /**
+   * Image fit (cover, fill, outside, inside, cover)
+   */
+  fit: 'outside',
 };
