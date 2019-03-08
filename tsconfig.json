@@ -5,14 +5,12 @@
     "target": "es6",
     "noUnusedLocals": true,
     "strictNullChecks": true,
-    "types": ["node"],
+    "types": ["node", "jest"],
     "noImplicitAny": true,
     "moduleResolution": "node",
     "rootDir": "./",
     "outDir": "./dist",
-    "sourceMap": true,
-    "typeRoots": ["./node_modules/*", "./src/types/*"]
+    "sourceMap": true
   },
-  "include": ["./src/*", "./config/*"],
-  "exclude": ["./types"]
+  "include": ["./src/*", "./config/*"]
 }
